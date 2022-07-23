@@ -7,9 +7,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/nipat01/chaorai-go-gin-gorm-mysql-api/controllers"
+
+	// "github.com/nipat01/chaorai-go-gin-gorm-mysql-api/controllers"
 	"github.com/nipat01/chaorai-go-gin-gorm-mysql-api/database"
 	"github.com/nipat01/chaorai-go-gin-gorm-mysql-api/middleware"
+	"github.com/nipat01/chaorai-go-gin-gorm-mysql-api/routes"
 )
 
 func main() {
@@ -20,7 +22,7 @@ func main() {
 	if err != nil {
 		log.Println("Error to load .env file")
 	}
-	log.Println(envs)
+	log.Println("envs: ", envs)
 
 	dbConnect := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true", envs["DB_USER"], envs["DB_PASS"], envs["DB_URL"], envs["DB_PORT"], envs["DB_NAME"])
 	log.Println("dbConnect: ", dbConnect)
@@ -34,17 +36,12 @@ func main() {
 		})
 	})
 
-	api := server.Group("/api")
+	test := server.Group("api/test").Use(middleware.Auth())
 	{
-		api.POST("/customer/login", controllers.GenerateToken)
-		api.POST("/customer/register", controllers.RegisterCustomer)
-
-		test := api.Group("/test").Use(middleware.Auth())
-		{
-			test.GET("/", testMiddleware).Use(middleware.Auth())
-		}
+		test.GET("/", testMiddleware).Use(middleware.Auth())
 	}
 
+	routes.CustomerRoute(server)
 	server.Run()
 }
 
