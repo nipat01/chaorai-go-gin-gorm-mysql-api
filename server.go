@@ -42,6 +42,8 @@ func main() {
 	}
 
 	routes.CustomerRoute(server)
+	routes.FarmerRoute(server)
+	
 	server.Run()
 }
 

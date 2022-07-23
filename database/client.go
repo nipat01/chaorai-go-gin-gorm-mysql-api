@@ -12,7 +12,7 @@ var Instance *gorm.DB
 var dbError error
 
 func Connect(connectionString string) {
-	
+
 	Instance, dbError = gorm.Open(mysql.Open(connectionString), &gorm.Config{})
 	if dbError != nil {
 		log.Fatal("dbError: ", dbError)
@@ -22,6 +22,6 @@ func Connect(connectionString string) {
 }
 
 func Migrate() {
-	Instance.AutoMigrate(&models.Customer{})
+	Instance.AutoMigrate(&models.Customer{}, &models.Farmer{})
 	log.Println("Database Migration Complete")
 }
