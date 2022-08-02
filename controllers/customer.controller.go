@@ -1,9 +1,6 @@
 package controllers
 
 import (
-	// "log"
-	// "net/http"
-
 	"log"
 
 	"github.com/gin-gonic/gin"

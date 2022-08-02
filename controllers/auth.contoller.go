@@ -16,7 +16,7 @@ type TokenRequest struct {
 	Password string `json:"password"`
 }
 
-func GenerateToken(ctx *gin.Context) {
+func GenerateCustomerToken(ctx *gin.Context) {
 	log.Println("GenerateToken() [start]")
 	var request TokenRequest
 	var customer models.Customer
@@ -42,7 +42,7 @@ func GenerateToken(ctx *gin.Context) {
 	}
 	log.Println("credentailError: ", credentailError)
 
-	tokenString, err := auth.GenerateJWT(customer.Email, customer.Username)
+	tokenString, err := auth.GenerateJWT(customer.Email, customer.Name)
 
 	if err != nil {
 		responses.ERROR(ctx, err)

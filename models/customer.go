@@ -9,10 +9,16 @@ import (
 
 type Customer struct {
 	gorm.Model
-	Name     string `json:"name"`
-	Username string `json:"username" gorm:"unique"`
-	Email    string `json:"email" gorm:"unique"`
-	Password string `json:"password"`
+	Email      string `json:"email" gorm:"unique"`
+	Password   string `json:"password"`
+	Name       string `json:"name"`
+	Lastname   string `json:"lastname"`
+	Province   string `json:"province"`
+	District   string `json:"district"`
+	SubDistrict string `json:"subDistrict"`
+	Postcode   string `json:"postcode"`
+	PhoneNo    string `json:"phoneNo"`
+	Status     string `json:"status"`
 }
 
 func (customer *Customer) Hashpassword(password string) error {

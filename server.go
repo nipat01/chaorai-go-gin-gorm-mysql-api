@@ -38,12 +38,14 @@ func main() {
 
 	test := server.Group("api/test").Use(middleware.Auth())
 	{
-		test.GET("/", testMiddleware).Use(middleware.Auth())
+		test.GET("/", testMiddleware)
 	}
 
 	routes.CustomerRoute(server)
 	routes.FarmerRoute(server)
-	
+	routes.OrderRoute(server)
+	routes.ProductRoute(server)
+
 	server.Run()
 }
 

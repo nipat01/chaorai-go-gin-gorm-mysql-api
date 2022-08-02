@@ -3,18 +3,17 @@ package routes
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/nipat01/chaorai-go-gin-gorm-mysql-api/controllers"
+	"github.com/nipat01/chaorai-go-gin-gorm-mysql-api/middleware"
 )
 
 func CustomerRoute(route *gin.Engine) {
 	customer := route.Group("api/customer")
 	{
-		customer.POST("/login", controllers.GenerateToken)
+		customer.POST("/login", controllers.GenerateCustomerToken)
 		customer.POST("/register", controllers.RegisterCustomer)
-		customer.GET("/all", controllers.FindAllCustomer)
-		customer.GET("/:email", controllers.FindByCustomerEmail)
-		customer.PUT("/:email", controllers.UpdateCustomer)
-		customer.DELETE("/:email", controllers.DeleteCustomer)
-
+		customer.GET("/all", middleware.Auth(), controllers.FindAllCustomer)
+		customer.GET("/:email", middleware.Auth(), controllers.FindByCustomerEmail)
+		customer.PUT("/:email", middleware.Auth(), controllers.UpdateCustomer)
+		customer.DELETE("/:email", middleware.Auth(), controllers.DeleteCustomer)
 	}
-
 }
