@@ -11,10 +11,12 @@ func OrderRoute(route *gin.Engine) {
 	// order := route.Group("/api/order").Use(middleware.Auth())
 	{
 		order.GET("/", controllers.FindAllOrder)
+		order.GET("/:id", controllers.FindOrderByOrderId)
 		order.POST("/", controllers.CreateOrder)
-		order.PUT("/:orderId")
-		order.DELETE("/:orderId")
-		order.GET("/customer/:customerId")
-		order.GET("/farmer/:farmerId")
+		order.PUT("/:orderId", controllers.UpdateOrder)
+		order.DELETE("/:orderId", controllers.DeleteOrder)
+		order.DELETE("/list/:id", controllers.DeleteOrderListByOrderListId)
+		order.GET("/customer/:customerEmail", controllers.FindOrderByCustomerEmail)
+		order.GET("/farmer/:farmerEmail", controllers.FindOrderByFarmerEmail)
 	}
 }
