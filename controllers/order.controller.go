@@ -205,10 +205,6 @@ func FindOrderByCustomerEmail(ctx *gin.Context) {
 
 }
 
-// func UpdateStatusOrder(ctx *gin.Context) {
-
-// }
-
 func UpdateOrder(ctx *gin.Context) {
 	orderId := ctx.Param("orderId")
 	orderRequest := models.OrderRequest{}
